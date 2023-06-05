@@ -260,7 +260,7 @@ RIGHT JOIN
 pizza_toppings ON FIND_IN_SET(topping_id, REPLACE(toppings,' ', '')) > 0) b using (pizza_id)
 where Exclusions = '' and Extras = ''
 group by a.order_id, a.pizza_id)
-Union ALL
+Union
 (with CTE AS
 (select a.order_id, a.pizza_id, b.topping_name, excluded_toppings, Extra_toppings from customer_orders a
 join 
