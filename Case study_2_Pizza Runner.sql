@@ -352,39 +352,8 @@ VALUES
   (4, 1);
 SELECT * FROM runners_ratting;
 
--- 4. Using your newly generated table - can you join all of the information together to form a
-	-- table which has the following information for successful deliveries?
-	-- customer_id
-	-- order_id
-	-- runner_id
-	-- rating
-	-- order_time
-	-- pickup_time
-	-- Time between order and pickup
-	-- Delivery duration
-	-- Average speed
-	-- Total number of pizzas
 
-select customer_id, order_id, runner_id, rating, order_time, pickup_time from customer_orders
-join runner_orders using (order_id)
-join runners_ratting using (runner_id)
-where duration != '';
 
--- 5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras 
-	-- and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner 
-	-- have left over after these deliveries?
-
-with CTE as
-(select pizza_id, count(pizza_id) As pizza_count from customer_orders
-join runner_orders using (order_id)
-where cancellation = ''
-group by pizza_id)
-select 
-sum(case when pizza_id = 1 then pizza_count*12
-	     else pizza_count*10
-end) as Total_earnings
-from CTE;
-select sum(distance)*0.30 from runner_orders
 
 
 
